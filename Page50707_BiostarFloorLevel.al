@@ -1,9 +1,9 @@
-page 50702 "Access Control Setup"
+page 50707 "BioStar Floor Level"
 {
     PageType = List;
     ApplicationArea = All;
     UsageCategory = Lists;
-    SourceTable = "Access Control Setup";
+    SourceTable = "Biostar floor levels";
 
     layout
     {
@@ -11,24 +11,21 @@ page 50702 "Access Control Setup"
         {
             repeater(General)
             {
-                field("Primary Key"; "Primary Key")
+                field(Name; Name)
                 {
-                    ApplicationArea = All;
-
                 }
-                field(Url; Url)
+                field(Description; Description)
                 {
-
                 }
-                field("login id"; Rec."login id")
+                field("Elevator Id"; "Elevator Id")
                 {
-                    ApplicationArea = All;
                 }
-                field(Password; Rec.Password)
+                field("Device Id"; "Device Id")
                 {
-                    ApplicationArea = All;
                 }
-
+                field("Schedule ID"; "Schedule ID")
+                {
+                }
 
             }
         }

@@ -1,9 +1,9 @@
-page 50702 "Access Control Setup"
+page 50709 "BioStar Schedules"
 {
     PageType = List;
     ApplicationArea = All;
     UsageCategory = Lists;
-    SourceTable = "Access Control Setup";
+    SourceTable = "Biostar Schedules";
 
     layout
     {
@@ -11,24 +11,24 @@ page 50702 "Access Control Setup"
         {
             repeater(General)
             {
-                field("Primary Key"; "Primary Key")
+                field("Schedule Name"; "Schedule Name")
                 {
-                    ApplicationArea = All;
-
                 }
-                field(Url; Url)
+                field("Day Index"; "Day Index")
                 {
-
                 }
-                field("login id"; Rec."login id")
+                field("Start Time"; "Start Time")
                 {
-                    ApplicationArea = All;
                 }
-                field(Password; Rec.Password)
+                field("End Time"; "End Time")
                 {
-                    ApplicationArea = All;
                 }
-
+                field(Description; Description)
+                {
+                }
+                field("Holiday group Id"; "Holiday group Id")
+                {
+                }
 
             }
         }

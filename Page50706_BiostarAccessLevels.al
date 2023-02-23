@@ -1,9 +1,9 @@
-page 50702 "Access Control Setup"
+page 50706 "BioStar Access Levels"
 {
     PageType = List;
     ApplicationArea = All;
     UsageCategory = Lists;
-    SourceTable = "Access Control Setup";
+    SourceTable = "Acccess Levels";
 
     layout
     {
@@ -11,24 +11,18 @@ page 50702 "Access Control Setup"
         {
             repeater(General)
             {
-                field("Primary Key"; "Primary Key")
+                field(Name; Name)
                 {
-                    ApplicationArea = All;
-
                 }
-                field(Url; Url)
+                field(Description; Description)
                 {
-
                 }
-                field("login id"; Rec."login id")
+                field(Door; Door)
                 {
-                    ApplicationArea = All;
                 }
-                field(Password; Rec.Password)
+                field("Shedule Id"; "Shedule Id")
                 {
-                    ApplicationArea = All;
                 }
-
 
             }
         }

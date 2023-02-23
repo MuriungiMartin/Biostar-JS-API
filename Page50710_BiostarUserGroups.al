@@ -1,9 +1,9 @@
-page 50702 "Access Control Setup"
+page 50710 "BioStar User Groups"
 {
     PageType = List;
     ApplicationArea = All;
     UsageCategory = Lists;
-    SourceTable = "Access Control Setup";
+    SourceTable = "biostar User Group";
 
     layout
     {
@@ -11,25 +11,15 @@ page 50702 "Access Control Setup"
         {
             repeater(General)
             {
-                field("Primary Key"; "Primary Key")
+                field("Parent Id"; "Parent Id")
                 {
-                    ApplicationArea = All;
-
                 }
-                field(Url; Url)
+                field(depth; depth)
                 {
-
                 }
-                field("login id"; Rec."login id")
+                field(name; name)
                 {
-                    ApplicationArea = All;
                 }
-                field(Password; Rec.Password)
-                {
-                    ApplicationArea = All;
-                }
-
-
             }
         }
         area(Factboxes)

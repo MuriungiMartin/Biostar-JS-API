@@ -1,9 +1,9 @@
-page 50702 "Access Control Setup"
+page 50708 "BioStar Permissions By User"
 {
     PageType = List;
     ApplicationArea = All;
     UsageCategory = Lists;
-    SourceTable = "Access Control Setup";
+    SourceTable = "Biostar Permission By User";
 
     layout
     {
@@ -11,24 +11,27 @@ page 50702 "Access Control Setup"
         {
             repeater(General)
             {
-                field("Primary Key"; "Primary Key")
+                field("User Name"; "User Name")
                 {
-                    ApplicationArea = All;
-
                 }
-                field(Url; Url)
+                field("User Group"; "User Group")
                 {
-
                 }
-                field("login id"; Rec."login id")
+                field("User Level"; "User Level")
                 {
-                    ApplicationArea = All;
                 }
-                field(Password; Rec.Password)
+                field("Door Group"; "Door Group")
                 {
-                    ApplicationArea = All;
                 }
-
+                field(Door; Door)
+                {
+                }
+                field("Schedule Id"; "Schedule Id")
+                {
+                }
+                field("Access Group"; "Access Group")
+                {
+                }
 
             }
         }

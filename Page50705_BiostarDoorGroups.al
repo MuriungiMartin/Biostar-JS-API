@@ -1,10 +1,9 @@
-page 50698 "Access Control Logs List"
+page 50705 "BioStar Door Groups"
 {
     PageType = List;
     ApplicationArea = All;
     UsageCategory = Lists;
-    SourceTable = "Access Control Card Logs";
-    CardPageId = "Access Control Logs Card";
+    SourceTable = "Biostar Door Groups";
 
     layout
     {
@@ -12,27 +11,31 @@ page 50698 "Access Control Logs List"
         {
             repeater(General)
             {
-                field("Entry No"; "Entry No")
+                field(Description; Description)
                 {
-                    ApplicationArea = All;
+                }
+                field("Access Level"; "Access Level")
+                {
+                }
+                field("Floor Level"; "Floor Level")
+                {
+                }
+                field("User Group"; "User Group")
+                {
+                }
+                field("User Id"; "User Id")
+                {
+                }
+                field("Parent Id"; "Parent Id")
+                {
+                }
+                field(Depth; Depth)
+                {
+                }
+                field(Name; Name)
+                {
+                }
 
-                }
-                field("Card No."; Rec."Card No.")
-                {
-                    ApplicationArea = All;
-                }
-                field("Time In"; Rec."Time In")
-                {
-                    ApplicationArea = All;
-                }
-                field("Time Out"; Rec."Time Out")
-                {
-                    ApplicationArea = All;
-                }
-                field("Visitor ID"; Rec."Visitor ID")
-                {
-                    ApplicationArea = All;
-                }
             }
         }
         area(Factboxes)
