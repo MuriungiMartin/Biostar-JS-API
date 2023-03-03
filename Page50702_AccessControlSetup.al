@@ -1,4 +1,4 @@
-page 50702 "Access Control Setup"
+page 50902 "Access Control Setup"
 {
     PageType = List;
     ApplicationArea = All;
@@ -11,12 +11,12 @@ page 50702 "Access Control Setup"
         {
             repeater(General)
             {
-                field("Primary Key"; "Primary Key")
+                field("Primary Key"; Rec."Primary Key")
                 {
                     ApplicationArea = All;
 
                 }
-                field(Url; Url)
+                field(Url; Rec.Url)
                 {
 
                 }
@@ -28,8 +28,8 @@ page 50702 "Access Control Setup"
                 {
                     ApplicationArea = All;
                 }
-                
-                
+
+
             }
         }
         area(Factboxes)

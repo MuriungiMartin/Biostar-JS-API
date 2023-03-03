@@ -10,10 +10,6 @@ controladdin AccessControlAddin
     RequestedWidth = 1;
     Scripts = 'AccessControl.js';
     StartupScript = 'AccessControlStartupScript.js';
-
-
-
-
     Event ControlReady();
     procedure TestTheTestAPI(Url: Text[250]; NASApiKey: text[250]);
     procedure Login(UserId: Text[150]; Password: Text[150]; url: Text[150]);
@@ -24,6 +20,6 @@ controladdin AccessControlAddin
     procedure CreateNewUserGroup(ApiKey: text[150]);
     procedure loginAxios();
     procedure loginXHR();
-    procedure CreateNewUserGroupXHR();
-
+    procedure CreateNewUserGroupXHR(parent_id: Integer; depth: integer; name: text; uri: text);
+    procedure loginMain(loginId: text; password: Text; uri: text);
 }

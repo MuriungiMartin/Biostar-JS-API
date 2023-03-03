@@ -1,7 +1,7 @@
 table 52178041 "Door Register"
 {
     DataClassification = ToBeClassified;
-    DrillDownPageId = "Doors List";
+    // DrillDownPageId = "Doors List";
 
     fields
     {

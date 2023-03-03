@@ -1,4 +1,4 @@
-page 50696 "Access Control Logs Card"
+page 50900 "Access Control Logs Card"
 {
     PageType = Card;
     ApplicationArea = All;
@@ -25,7 +25,7 @@ page 50696 "Access Control Logs Card"
 
             group(General)
             {
-                field("Entry No"; "Entry No")
+                field("Entry No"; Rec."Entry No")
                 {
                     ApplicationArea = All;
 
@@ -127,7 +127,7 @@ page 50696 "Access Control Logs Card"
                 trigger OnAction()
                 begin
                     ObjAccSetup.get;
-                    CurrPage.AcessControl.CreateNewUserGroupXHR(1, 1, "Visitor ID", ObjAccSetup.Url);
+                    CurrPage.AcessControl.CreateNewUserGroupXHR(1, 1, Rec."Visitor ID", ObjAccSetup.Url);
                 end;
             }
 
@@ -211,12 +211,12 @@ page 50696 "Access Control Logs Card"
     var
         myInt: Integer;
         ObjAccSetup: Record "Access Control Setup";
-        [RunOnClient]
-        [WithEvents]
-        DotNetBiostar: DotNet Biostar;
-        [RunOnClient]
-        [WithEvents]
-        BiostarFullDll: DotNet BiostarIntegration;
+    // [RunOnClient]
+    // [WithEvents]
+    // DotNetBiostar: DotNet Biostar;
+    // [RunOnClient]
+    // [WithEvents]
+    // BiostarFullDll: DotNet BiostarIntegration;
 
 
     procedure LoginAccess() return_value: Text

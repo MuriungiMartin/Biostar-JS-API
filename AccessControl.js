@@ -205,3 +205,91 @@ xhr.setRequestHeader('Authorization', auth);
   xhr.send(soapRequest);
 
 }
+
+//Access Level-Post
+function CreateNewAccessLevel(parent_id,depth,name,uri)
+{
+
+  var finalName='"'+name+'"';
+  var data = "{\r\n    \"UserGroup\": {\r\n        \"parent_id\": {\r\n            \"id\": "+parent_id+"\r\n        },\r\n        \"depth\":"+depth+",\r\n        \"name\": "+finalName+"\r\n    }\r\n}";
+
+
+var xhr = new XMLHttpRequest();
+xhr.withCredentials = false;
+
+// alert(data);
+
+xhr.addEventListener("readystatechange", function() {
+  if(this.readyState === 4) {
+    console.log(this.responseText);
+  }
+});
+
+
+
+SessionId=localStorage.getItem('bs-session-id');
+// alert(`Stored Session ID ${SessionId}`);
+xhr.open("POST", uri+"/api/user_groups");
+xhr.setRequestHeader('content-type','application/json');
+xhr.setRequestHeader('Access-Control-Allow-Origin','*',);
+xhr.setRequestHeader('bs-session-id',SessionId)
+
+//xhr.timeout=60000;
+// alert('res 1 '+xhr.response);
+xhr.onload = function(){
+  if (xhr.status==200){
+    // alert('Giving output');
+    var response = JSON.parse(this.responseText);
+   alert(response);
+   const id = response.UserGroup.id;
+   const name = response.UserGroup.name;
+    SendUserGroupBackToBCCentral(id,name,parent_id,depth);
+  }
+  else 
+  {
+    console.log('an error ocurred '+xhr.status);
+  }
+}
+
+
+
+xhr.send(data);
+
+
+}
+//Access Level-Get
+function PostAccessLevelBC(id,name,parentId,depth)
+{
+  var endpoint=`http://desktop-2j34hh3:7047/BC140/WS/KMPDC/Codeunit/CuBiostarAccessControl`;
+  var soapRequest = `<Envelope xmlns="http://schemas.xmlsoap.org/soap/envelope/">` +
+  `<Body>` +
+  `<fnCreateBiostarUserGroup xmlns="urn:microsoft-dynamics-schemas/codeunit/CuBiostarAccessControl">` +
+  `<id>${id}</id>` +
+  `<name>${name}</name>` +
+  `<parentId>${parentId}</parentId>` +
+  `<depth>${depth}</depth>` +
+  `</fnCreateBiostarUserGroup>` +
+  `</Body>` +
+  `</Envelope>`;
+
+  // alert(' this is the soap request '+soapRequest);
+
+  var xhr = new XMLHttpRequest();
+  xhr.open(`POST`, endpoint, true);
+  xhr.setRequestHeader(`Content-Type`, `text/xml; charset=utf-8`);
+  xhr.setRequestHeader(`SOAPAction`, `fnCreateBiostarUserGroup`);
+  var auth = 'Basic ' + btoa(Username + ':' + Password);
+xhr.setRequestHeader('Authorization', auth);
+  
+  // define a callback function to handle the response
+  xhr.onreadystatechange = function() {
+      if (xhr.readyState == 4 && xhr.status == 200) {
+          // handle the SOAP response here
+          console.log(xhr.responseText);
+      }
+  };
+  
+  // send the SOAP request
+  xhr.send(soapRequest);
+
+}

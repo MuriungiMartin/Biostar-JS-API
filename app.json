@@ -10,18 +10,21 @@
   "help": "",
   "url": "",
   "logo": "",
+  "target": "OnPrem",
   "dependencies": [],
   "screenshots": [],
   "platform": "1.0.0.0",
   "application": "14.0.0.0",
   "idRanges": [
-    {
-      "from": 50100,
-      "to": 50149
-    }
+    { 
+      "from": 50000,
+    "to": 50999 },
+     { 
+      "from": 52177423,
+     "to": 52178423 }
   ],
   "showMyCode": true,
-  "runtime": "3.0",
+  "runtime": "9.0",
   "features": [
     "NoImplicitWith"
   ]

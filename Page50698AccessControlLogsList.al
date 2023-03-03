@@ -1,4 +1,4 @@
-page 50698 "Access Control Logs List"
+page 50901 "Access Control Logs List"
 {
     PageType = List;
     ApplicationArea = All;
@@ -12,7 +12,7 @@ page 50698 "Access Control Logs List"
         {
             repeater(General)
             {
-                field("Entry No"; "Entry No")
+                field("Entry No"; Rec."Entry No")
                 {
                     ApplicationArea = All;
 
