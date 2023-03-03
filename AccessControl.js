@@ -78,9 +78,43 @@ xhr.setRequestHeader('bs-session-id',SessionId)
 xhr.send(data);
 }
 
-function sendBackAccessGrouptoMSDBC()
+function sendBackAccessGrouptoMSDBC(ID, Name, Description, Users, UserGroups, AccessLevels,FloorLevels)
 {
+//fnCreateBiostarAccessGroup
+//ID: integer; Name: text[25]; Description: Text[40]; Users: TExt[250]; UserGroups: TExt[250]; AccessLevels: TExt[250]; FloorLevels: TExt[250]
+var endpoint=`http://desktop-2j34hh3:7047/BC140/WS/KMPDC/Codeunit/CuBiostarAccessControl`;
+  var soapRequest = `<Envelope xmlns="http://schemas.xmlsoap.org/soap/envelope/">` +
+  `<Body>` +
+  `<fnCreateBiostarAccessGroup xmlns="urn:microsoft-dynamics-schemas/codeunit/CuBiostarAccessControl">` +
+  `<ID>${ID}</ID>` +
+  `<Name>${Name}</Name>` +
+  `<Description>${Description}</Description>` +
+  `<Users>${Users}</Users>` +
+  `<UserGroups>${UserGroups}</UserGroups>` +
+  `<AccessLevels>${AccessLevels}</AccessLevels>` +
+  `</fnCreateBiostarAccessGroup>` +
+  `</Body>` +
+  `</Envelope>`;
 
+  // alert(' this is the soap request '+soapRequest);
+
+  var xhr = new XMLHttpRequest();
+  xhr.open(`POST`, endpoint, true);
+  xhr.setRequestHeader(`Content-Type`, `text/xml; charset=utf-8`);
+  xhr.setRequestHeader(`SOAPAction`, `fnCreateBiostarAccessGroup`);
+  var auth = 'Basic ' + btoa(Username + ':' + Password);
+xhr.setRequestHeader('Authorization', auth);
+  
+  // define a callback function to handle the response
+  xhr.onreadystatechange = function() {
+      if (xhr.readyState == 4 && xhr.status == 200) {
+          // handle the SOAP response here
+          console.log(xhr.responseText);
+      }
+  };
+  
+  // send the SOAP request
+  xhr.send(soapRequest);
 }
 
 function ListAllAccessGroups(uri)
@@ -95,11 +129,44 @@ xhr.addEventListener(`readystatechange`, function() {
     console.log(this.responseText);
   }
 });
-localStorage.getItem('bs-session-id');
+SessionId=localStorage.getItem('bs-session-id');
 xhr.open(`GET`, `${uri}/api/access_groups`);
 xhr.setRequestHeader('content-type','application/json');
 xhr.setRequestHeader('Access-Control-Allow-Origin','*',),
 xhr.setRequestHeader('bs-session-id',SessionId)
+
+xhr.onload = function()
+{
+  if (xhr.status==200) 
+  {
+    var Response=JSON.parse(this.responseText);
+    var JsonArrayResponse=Response.AccessGroupCollection.rows;
+      for (let i =0 ; i <JsonArrayResponse.length; i++){
+        JsonResponse=JsonArrayResponse[i];
+        let id = JsonArrayResponse[i].id;
+        let name = JsonArrayResponse[i].name;
+        let description = JsonArrayResponse[i].description;
+        let users = JsonArrayResponse[i].user_count;
+        if (JsonResponse.hasOwnProperty('user_groups'))
+        {
+          var  usergroupId=JsonArrayResponse[i].user_groups.id;
+
+        }
+        if (JsonResponse.hasOwnProperty('access_levels'))
+        {
+          var access_level=JsonArrayResponse[i].access_levels.id;
+
+        }
+
+        sendBackAccessGrouptoMSDBC(id, name, description, users, usergroupId, access_level)
+      }
+
+
+
+
+  }
+}
+
 xhr.send();
 }
 
@@ -145,7 +212,7 @@ xhr.addEventListener("readystatechange", function() {
 
 
 
-localStorage.getItem('bs-session-id');
+SessionId=localStorage.getItem('bs-session-id');
 // alert(`Stored Session ID ${SessionId}`);
 xhr.open("POST", uri+"/api/user_groups");
 xhr.setRequestHeader('content-type','application/json');
@@ -233,33 +300,14 @@ xhr.setRequestHeader('content-type','application/json');
 xhr.setRequestHeader('Access-Control-Allow-Origin','*',);
 xhr.setRequestHeader('bs-session-id',SessionId);
 
-// xhr.onload = function()
-// {
-//   if (xhr.status==200)
-//   {
-//     var Response = JSON.parse(xhr.responseText);
-//     var JsonArrayResponse = Response.UserCollection.rows;
-//     for (let i = 0; i < JsonArrayResponse.length; i++){
-//       JsonResponse=JsonArrayResponse[i];
-//       let userid = JsonArrayResponse[i].user_id;
-//       let name = JsonArrayResponse[i].name;
-//       let login = JsonArrayResponse[i].login_id;
-//       let cardcount = JsonArrayResponse[i].card_count;
-//       let phone = JsonArrayResponse[i].idx_phone;
-//       let disabled = JsonArrayResponse[i].disabled;
-//       let expired = JsonArrayResponse[i].expired;
-//       let email=JsonArrayResponse[i].idx_email;
-//       if (JsonResponse.hasOwnProperty('permission'))
-//       {
-//         permissionid=JsonArrayResponse[i].permission.id;
-//         permissionName=JsonArrayResponse[i].permission.name;
-//         permissionDesc=JsonArrayResponse[i].permission.description;
-//       }
-//       SendBiostarUserBackToBCCentral(userid,name,1,disabled,email,'ict','title',phone,permissionid,1,login,'***','',123,expired,cardcount);
-//     }
+xhr.onload = function ()
+{
+  if (xhr.status==200)
+  {
 
-//   }
-// }
+    alert("User Has Been Successfully Created");
+  }
+}
 
 xhr.send(data);  
 }
@@ -299,7 +347,15 @@ xhr.onload = function()
         permissionName=JsonArrayResponse[i].permission.name;
         permissionDesc=JsonArrayResponse[i].permission.description;
       }
-      SendBiostarUserBackToBCCentral(userid,name,1,disabled,email,'ict','title',phone,permissionid,1,login,'***','',123,expired,cardcount);
+      if (JsonResponse.hasOwnProperty('department'))
+      {
+        var department=JsonArrayResponse[i].department;
+      }
+      if (JsonResponse.hasOwnProperty('user_title'))
+      {
+        var title=JsonArrayResponse[i].user_title;
+      }
+      SendBiostarUserBackToBCCentral(userid,name,1,disabled,email,department,title,phone,permissionid,1,login,'***','',123,expired,cardcount);
     }
 
   }
@@ -314,7 +370,7 @@ xhr.setRequestHeader('bs-session-id',SessionId);
 xhr.send();
 }
 
-function SendBiostarUserBackToBCCentral(bUserId,userNAme,usergroupId,disabled,email,department,title,phone,permission,AccessGroup,loginId,password,userIp,pinNo,expired,cardcount)
+function SendBiostarUserBackToBCCentral(bUserId,userNAme,usergroupId,disabled,email,department,title,phone,permission,AccessGroup,loginId,password,userIp,pinNo,expired,cardcount,startdatetime,expirydatetime)
 {
    var endpoint=`http://desktop-2j34hh3:7047/BC140/WS/KMPDC/Codeunit/CuBiostarAccessControl`;
   var soapRequest = `<Envelope xmlns="http://schemas.xmlsoap.org/soap/envelope/">` +
@@ -336,6 +392,9 @@ function SendBiostarUserBackToBCCentral(bUserId,userNAme,usergroupId,disabled,em
   `<pinNo> ${pinNo}</pinNo>` +
   `<expired> ${expired}</expired>` +
   `<cardcount> ${cardcount}</cardcount>` +
+  `<startDateTime> ${startdatetime}</startDateTime>` +
+  `<ExpiryDateTime> ${expirydatetime}</ExpiryDateTime>` +
+  
 `</fnCreateBiostarUser>` +
 `</Body>` +
 `</Envelope>`;
@@ -382,6 +441,7 @@ xhr.setRequestHeader('bs-session-id',SessionId);
 
 xhr.onload = function(){
   if (xhr.status==200){
+    console.log(userid+'  '+cardId)
 SendAssignedCardBackToBcCentral(userid,cardId)
   }
   else
@@ -393,7 +453,7 @@ SendAssignedCardBackToBcCentral(userid,cardId)
 xhr.send(data);
 }
 
-function SendAssignedCardBackToBcCentral(cardtype,cardId)
+function SendAssignedCardBackToBcCentral(userid,cardId)
 {
 /* `<Body>` +
   `<fnCreateBiostarUserGroup xmlns="urn:microsoft-dynamics-schemas/codeunit/CuBiostarAccessControl">` +
@@ -408,10 +468,10 @@ function SendAssignedCardBackToBcCentral(cardtype,cardId)
   var endpoint=`http://desktop-2j34hh3:7047/BC140/WS/KMPDC/Codeunit/CuBiostarAccessControl`;
   var soapRequest = `<Envelope xmlns="http://schemas.xmlsoap.org/soap/envelope/">` +
   `<Body>` +
-  `<fnCreateBiostarCard xmlns="urn:microsoft-dynamics-schemas/codeunit/CuBiostarAccessControl">` +
-  `<cardId>${cardId}</cardId>` +
-  `<cardType> ${cardtype}</cardType>` +
-`</fnCreateBiostarCard>` +
+  `<fnAssignUserCard xmlns="urn:microsoft-dynamics-schemas/codeunit/CuBiostarAccessControl">` +
+  `<BuserID>${userid}</BuserID>` +
+  `<CardID> ${cardId}</CardID>` +
+`</fnAssignUserCard>` +
 `</Body>` +
 `</Envelope>`;
 
@@ -420,7 +480,7 @@ function SendAssignedCardBackToBcCentral(cardtype,cardId)
   var xhr = new XMLHttpRequest();
   xhr.open(`POST`, endpoint, true);
   xhr.setRequestHeader(`Content-Type`, `text/xml; charset=utf-8`);
-  xhr.setRequestHeader(`SOAPAction`, `fnCreateBiostarCard`);
+  xhr.setRequestHeader(`SOAPAction`, `fnAssignUserCard`);
   var auth = 'Basic ' + btoa(Username + ':' + Password);
 xhr.setRequestHeader('Authorization', auth);
   
@@ -571,7 +631,7 @@ xhr.addEventListener("readystatechange", function() {
 });
 
 SessionId= localStorage.getItem("bs-session-id");
-xhr.open("GET", uri+"/api/cards?limit=50&offset=0");
+xhr.open("GET", uri+"/api/cards?limit=500&offset=0");
 xhr.setRequestHeader('content-type','application/json');
 xhr.setRequestHeader('Access-Control-Allow-Origin','*',);
 xhr.setRequestHeader('bs-session-id',SessionId);
