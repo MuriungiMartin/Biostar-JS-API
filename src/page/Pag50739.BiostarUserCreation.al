@@ -11,12 +11,12 @@ page 50739 "Biostar User Creation"
         {
             group(GroupName)
             {
-                field(ID; ID)
+                field(ID; Rec.ID)
                 {
                     ApplicationArea = All;
 
                 }
-                field(Name; Name)
+                field(Name; Rec.Name)
                 {
 
                 }

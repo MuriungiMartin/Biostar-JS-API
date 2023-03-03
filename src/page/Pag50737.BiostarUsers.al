@@ -15,48 +15,48 @@ page 50737 "Biostar Users"
             }
             repeater(GroupName)
             {
-                field(ID; ID)
+                field(ID; Rec.ID)
                 {
                     ApplicationArea = All;
 
                 }
-                field(Name; Name)
+                field(Name; Rec.Name)
                 {
 
                 }
-                field(Email; Email)
+                field(Email; Rec.Email)
                 {
 
                 }
-                field(Department; Department)
+                field(Department; Rec.Department)
                 {
 
                 }
-                field(Title; Title)
+                field(Title; Rec.Title)
                 {
 
                 }
-                field("Card ID"; "Card ID")
+                field("Card ID"; Rec."Card ID")
                 {
 
                 }
-                field("Card Type"; "Card Type")
+                field("Card Type"; Rec."Card Type")
                 {
 
                 }
-                field("Login id"; "Login id")
+                field("Login id"; Rec."Login id")
                 {
 
                 }
-                field("card count"; "card count")
+                field("card count"; Rec."card count")
                 {
 
                 }
-                field(expired; expired)
+                field(expired; Rec.expired)
                 {
 
                 }
-                field(Disabled; Disabled)
+                field(Disabled; Rec.Disabled)
                 {
 
                 }

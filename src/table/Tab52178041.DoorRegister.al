@@ -1,7 +1,6 @@
 table 52178041 "Door Register"
 {
     DataClassification = ToBeClassified;
-    DrillDownPageId = "Doors List";
 
     fields
     {
@@ -15,7 +14,7 @@ table 52178041 "Door Register"
         }
         field(3; "Designated Employee No."; Code[50])
         {
-            TableRelation = Employee."No.";
+            //TableRelation = Employee."No.";
 
         }
         field(4; "Employee Name"; text[150])

@@ -16,36 +16,36 @@ page 50738 "Biostar Cards"
             }
             repeater(Card)
             {
-                field("Card Id"; "Card Id")
+                field("Card Id"; Rec."Card Id")
                 {
                     ApplicationArea = All;
 
                 }
-                field("Card Type"; "Card Type")
+                field("Card Type"; Rec."Card Type")
                 {
 
                 }
-                field("Card Type Name"; "Card Type Name")
+                field("Card Type Name"; Rec."Card Type Name")
                 {
 
                 }
-                field(Assigned; Assigned)
+                field(Assigned; Rec.Assigned)
                 {
 
                 }
-                field(BlackListed; BlackListed)
+                field(BlackListed; Rec.BlackListed)
                 {
 
                 }
-                field(Status; Status)
+                field(Status; Rec.Status)
                 {
 
                 }
-                field("User ID"; "User ID")
+                field("User ID"; Rec."User ID")
                 {
 
                 }
-                field("User Name"; "User Name")
+                field("User Name"; Rec."User Name")
                 {
 
                 }
@@ -85,7 +85,7 @@ page 50738 "Biostar Cards"
                 trigger OnAction();
                 begin
                     ObjAccSetup.Get();
-                    CurrPage.Biostar.createCard("Card Id", "Card Type", ObjAccSetup.Url);
+                    CurrPage.Biostar.createCard(Rec."Card Id", Rec."Card Type", ObjAccSetup.Url);
                 end;
             }
             action("Fetch Cards")
