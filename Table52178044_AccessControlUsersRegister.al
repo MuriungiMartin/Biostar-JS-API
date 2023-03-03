@@ -1,7 +1,8 @@
 table 52178044 "Ac Ctrl Users Rec"
 {
     DataClassification = ToBeClassified;
-
+    DrillDownPageId = "Biostar Users";
+    LookupPageId = "Biostar Users";
     fields
     {
         field(1; "ID"; Integer)
@@ -103,6 +104,18 @@ table 52178044 "Ac Ctrl Users Rec"
         field(24; "Pin No"; Integer)
         {
             DataClassification = ToBeClassified;
+        }
+        field(25; "Idle User"; Boolean)
+        {
+            DataClassification = ToBeClassified;
+        }
+        field(26; "card count"; Integer)
+        {
+
+        }
+        field(27; "expired"; Boolean)
+        {
+
         }
 
     }
