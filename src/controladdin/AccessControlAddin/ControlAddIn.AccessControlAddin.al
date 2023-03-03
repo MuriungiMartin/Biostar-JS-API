@@ -25,8 +25,10 @@ controladdin "AccessControlAddin"
     procedure CreateCard(cardId: Integer; cardtype: Integer; uri: Text);
 
     procedure listAllUsers(uri: text);
-    procedure CreateNewBiostarUser(uri: text; userid: Integer; userip: Text; "user_group_id": Integer; "start_datetime": DateTime; "expiry_datetime": datetime; disabled: boolean; name: Text; email: Text; department: Text; title: text; photo: BigText; phone: Text; permission: Integer; "access_groups": Integer; "login_id": Text; password: Text);
+    procedure CreateNewBiostarUser(uri: text; userid: Integer; userip: Text; "user_group_id": Integer; "start_datetime": DateTime; "expiry_datetime": datetime; disabled: boolean; name: Text; email: Text; department: Text; title: text; photo: BigText; phone: Text; "access_groups": Integer; "login_id": Text; password: Text);
     Procedure listAllDoors(uri: text);
+    procedure UserCredentialCard(userid: integer; cardId: Integer; uri: Text);
+    procedure ListAllAccessGroups(uri: Text);
 
 
 }
