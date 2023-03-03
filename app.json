@@ -2,7 +2,7 @@
   "id": "db57d4a0-0e38-4dfc-9a56-7209bb681ee4",
   "name": "BiostarIntegration",
   "publisher": "Default publisher",
-  "version": "1.0.0.0",
+  "version": "1.0.0.1",
   "brief": "",
   "description": "",
   "privacyStatement": "",
@@ -10,20 +10,16 @@
   "help": "",
   "url": "",
   "logo": "",
-  "target": "OnPrem",
   "dependencies": [],
   "screenshots": [],
   "platform": "1.0.0.0",
-  "application": "14.0.0.0",
-  "idRanges": [
-    { 
-      "from": 50000,
-    "to": 50999 },
-     { 
-      "from": 52177423,
-     "to": 52178423 }
-  ],
-  "showMyCode": true,
+  "application": "20.0.0.0",
+  "idRanges": [ {"from": 50000, "to": 50999 },{"from": 52177423, "to": 52178423 } ],
+  "resourceExposurePolicy": {
+    "allowDebugging": true,
+    "allowDownloadingSource": true,
+    "includeSourceInSymbolFile": true
+  },
   "runtime": "9.0",
   "features": [
     "NoImplicitWith"
